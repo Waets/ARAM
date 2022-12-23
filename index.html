@@ -1,26 +1,64 @@
 <html>
-<head>
-  <style>
-    /* Style pour le double trait noir entre les colonnes */
-    .separator {
-      border-left: 2px solid black;
-      height: 100%;
-    }
-  </style>
-  <title>Lancer l'aram</title>
-</head>
-<body>
-  <button id="launchButton">Lancer l'aram</button>
-  <br>
-  <table id="teamTable" style="display:none">
+  <head>
+    <style>
+  /* Style futuriste pour le tableau */
+  table {
+    border-collapse: collapse;
+    width: 50%; /* moins large */
+    font-family: sans-serif;
+    color: white;
+    background-color: #333;
+    margin: 0 auto; /* centré avec le bouton */
+  }
+
+  td, th {
+    border: 1px solid #ddd;
+    padding: 16px; /* lignes plus grandes */
+    text-align: center; /* valeurs centrées dans leur colonne */
+  }
+
+  tr:nth-child(even) {
+    background-color: #444;
+  }
+
+  /* Couleur futuriste pour l'équipe 1 */
+  .team1 {
+    color: #ffa07a;
+  }
+
+  /* Couleur futuriste pour l'équipe 2 */
+  .team2 {
+    color: #add8e6;
+  }
+
+  /* Bouton stylisé et centré */
+  button {
+    display: block;
+    margin: 32px auto; /* espace entre le bouton et le tableau */
+    border: none;
+    background-color: #333;
+    color: white;
+    font-size: 18px;
+    padding: 16px 32px;
+    cursor: pointer;
+  }
+</style>
+  </head>
+  <body>
+    <div id="cellValues"></div>
+  <!-- Bouton pour lancer l'aram -->
+  <button onclick="displayValues()">Lancer l'aram</button>
+  <!-- Tableau pour afficher les valeurs -->
+  <table id="valueTable">
     <tr>
-      <td style="color:red">Équipe 1</td>
-      <td class="separator"></td>
-      <td style="color:blue">Équipe 2</td>
+      <th>Equipe 1</th>
+      <th>Equipe 2</th>
     </tr>
   </table>
   <script>
-    const values = [
+    // Fonction pour afficher les valeurs
+    function displayValues() {
+        const values = [
     "Aatrox",
     "Ahri",
     "Akali",
@@ -183,43 +221,45 @@
       "Yone",
       "Aphelios"
     ];
-
-    // Fonction qui retourne 18 valeurs aléatoires parmi les 150 valeurs de l'array
-    function getRandomValues() {
-      const randomValues = [];
-      for (let i = 0; i < 18; i++) {
-        randomValues.push(values[Math.floor(Math.random() * values.length)]);
-      }
-      return randomValues;
-    }
-
-    // Fonction qui affiche les valeurs aléatoires dans un tableau
-    function displayValues(values) {
-      const teamTable = document.getElementById("teamTable");
-      teamTable.style.display = "block"; // Affiche le tableau
-      // Supprime les lignes précédemment ajoutées au tableau
-      while (teamTable.rows.length > 1) {
-        teamTable.deleteRow(-1);
-      }
-      // Ajoute une ligne pour chaque valeur
-      for (let i = 0; i < values.length; i++) {
-        const row = teamTable.insertRow(-1); // Ajoute une ligne à la fin du tableau
-        const cell1 = row.insertCell(0); // Ajoute une cellule à gauche de la ligne
-        const cell2 = row.insertCell(1); // Ajoute une cellule à droite de la ligne
-        if (i < values.length / 2) {
-          cell1.innerHTML = values[i]; // Équipe 1
-        } else {
-          cell2.innerHTML = values[i]; // Équipe 2
+    // Tableau pour stocker 9 valeurs aléatoires pour l'équipe 1
+        const randomValues1 = [];
+        // Tableau pour stocker 9 valeurs aléatoires pour l'équipe 2
+        const randomValues2 = [];
+        // Boucle pour sélectionner 9 valeurs aléatoires différentes pour l'équipe 1
+        while (randomValues1.length < 9) {
+          const randomIndex = Math.floor(Math.random() * values.length);
+          const randomValue = values[randomIndex];
+          if (!randomValues1.includes(randomValue)) {
+            randomValues1.push(randomValue);
+          }
+        }
+        // Boucle pour sélectionner 9 valeurs aléatoires différentes pour l'équipe 2
+        while (randomValues2.length < 9) {
+          const randomIndex = Math.floor(Math.random() * values.length);
+          const randomValue = values[randomIndex];
+          if (!randomValues2.includes(randomValue) && !randomValues1.includes(randomValue)) {
+            randomValues2.push(randomValue);
+          }
+        }
+        // Réinitialisation du tableau
+        const table = document.getElementById("valueTable");
+        while (table.rows.length > 1) {
+          table.deleteRow(1);
+        }
+        // Boucle pour ajouter les valeurs au tableau
+        for (let i = 0; i < 9; i++) {
+          // Création d'une ligne de tableau
+          const row = table.insertRow();
+          // Création des cellules pour l'équipe 1 et l'équipe 2
+          const cell1 = row.insertCell(0);
+          const cell2 = row.insertCell(1);
+          // Ajout des valeurs dans les cellules
+          cell1.innerHTML = randomValues1[i];
+          cell1.classList.add("team1");
+          cell2.innerHTML = randomValues2[i];
+          cell2.classList.add("team2");
         }
       }
-    }
-
-    // Fonction qui affiche les valeurs aléatoires lors du clic sur le bouton
-    const launchButton = document.getElementById("launchButton");
-    launchButton.addEventListener("click", function() {
-      const randomValues = getRandomValues();
-      displayValues(randomValues);
-    });
-  </script>
-</body>
+    </script>
+  </body>
 </html>
