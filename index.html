@@ -1,0 +1,210 @@
+<html>
+<head>
+  <style>
+    /* Style pour le double trait noir entre les colonnes */
+    .separator {
+      border-left: 2px solid black;
+      height: 100%;
+    }
+  </style>
+  <title>Lancer l'aram</title>
+</head>
+<body>
+  <button id="launchButton">Lancer l'aram</button>
+  <br>
+  <table id="teamTable" style="display:none">
+    <tr>
+      <td style="color:red">Équipe 1</td>
+      <td class="separator"></td>
+      <td style="color:blue">Équipe 2</td>
+    </tr>
+  </table>
+  <script>
+    const values = [
+    "Aatrox",
+    "Ahri",
+    "Akali",
+    "Alistar",
+    "Amumu",
+    "Anivia",
+    "Annie",
+    "Ashe",
+    "Aurelion Sol",
+    "Azir",
+    "Bard",
+    "Blitzcrank",
+    "Brand",
+    "Braum",
+    "Caitlyn",
+    "Camille",
+    "Cassiopeia",
+    "Cho'Gath",
+    "Corki",
+    "Darius",
+    "Diana",
+    "Dr. Mundo",
+    "Draven",
+    "Ekko",
+    "Elise",
+    "Evelynn",
+    "Ezreal",
+    "Fiddlesticks",
+    "Fiora",
+    "Fizz",
+    "Galio",
+    "Gangplank",
+    "Garen",
+    "Gnar",
+    "Gragas",
+    "Graves",
+    "Hecarim",
+    "Heimerdinger",
+    "Illaoi",
+    "Irelia",
+    "Ivern",
+    "Janna",
+    "Jarvan IV",
+    "Jax",
+    "Jayce",
+    "Jhin",
+    "Jinx",
+    "Kalista",
+    "Karma",
+    "Karthus",
+    "Kassadin",
+    "Katarina",
+    "Kayle",
+    "Kayn",
+    "Kennen",
+    "Kha'Zix",
+    "Kindred",
+    "Kled",
+    "Kog'Maw",
+    "LeBlanc",
+    "Lee Sin",
+    "Leona",
+    "Lissandra",
+    "Lucian",
+    "Lulu",
+    "Lux",
+    "Malphite",
+    "Malzahar",
+    "Maokai",
+    "Master Yi",
+    "Miss Fortune",
+    "Mordekaiser",
+    "Morgana",
+    "Nami",
+    "Nasus",
+    "Nautilus",
+    "Neeko",
+    "Nidalee",
+    "Nocturne",
+    "Nunu & Willump",
+    "Olaf",
+    "Orianna",
+    "Ornn",
+    "Pantheon",
+    "Poppy",
+    "Pyke",
+    "Qiyana",
+    "Quinn",
+    "Rakan",
+    "Rammus",
+    "Rek'Sai",
+    "Renekton",
+    "Rengar",
+    "Riven",
+    "Rumble",
+    "Ryze",
+    "Sejuani",
+    "Senna",
+    "Sett",
+    "Shaco",
+    "Shen",
+    "Shyvana",
+    "Singed",
+    "Sion",
+    "Sivir",
+    "Skarner",
+    "Sona",
+    "Soraka",
+    "Swain",
+    "Sylas",
+    "Syndra",
+    "Tahm Kench",
+    "Taliyah",
+    "Talon",
+    "Taric",
+    "Teemo",
+    "Thresh",
+    "Tristana",
+    "Trundle",
+    "Tryndamere",
+    "Twisted Fate",
+    "Twitch",
+    "Udyr",
+    "Urgot",
+    "Varus",
+    "Vayne",
+    "Veigar",
+    "Vel'Koz",
+    "Vi",
+    "Viktor",
+    "Vladimir",
+    "Volibear",
+    "Warwick",
+    "Wukong",
+    "Xayah",
+    "Xerath",
+    "Xin Zhao",
+    "Yasuo",
+    "Yorick",
+    "Yuumi",
+    "Zac",
+    "Zed",
+    "Ziggs",
+    "Zilean",
+    "Zoe",
+    "Zyra"
+    ];
+
+    // Fonction qui retourne 18 valeurs aléatoires parmi les 150 valeurs de l'array
+    function getRandomValues() {
+      const randomValues = [];
+      for (let i = 0; i < 18; i++) {
+        randomValues.push(values[Math.floor(Math.random() * values.length)]);
+      }
+      return randomValues;
+    }
+
+    // Fonction qui affiche les valeurs aléatoires dans un tableau
+    function displayValues(values) {
+      const teamTable = document.getElementById("teamTable");
+      teamTable.style.display = "block"; // Affiche le tableau
+      // Supprime les lignes précédemment ajoutées au tableau
+      while (teamTable.rows.length > 1) {
+        teamTable.deleteRow(-1);
+      }
+      // Ajoute une ligne pour chaque valeur
+      for (let i = 0; i < values.length; i++) {
+        const row = teamTable.insertRow(-1); // Ajoute une ligne à la fin du tableau
+        const cell1 = row.insertCell(0); // Ajoute une cellule à gauche de la ligne
+        const cell2 = row.insertCell(1); // Ajoute une cellule à droite de la ligne
+        if (i < values.length / 2) {
+          cell1.innerHTML = values[i]; // Équipe 1
+        } else {
+          cell2.innerHTML = values[i]; // Équipe 2
+        }
+      }
+    }
+
+    // Fonction qui affiche les valeurs aléatoires lors du clic sur le bouton
+    const launchButton = document.getElementById("launchButton");
+    launchButton.addEventListener("click", function() {
+      const randomValues = getRandomValues();
+      displayValues(randomValues);
+    });
+  </script>
+</body>
+</html>
